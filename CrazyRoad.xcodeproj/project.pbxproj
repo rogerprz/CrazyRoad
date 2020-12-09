@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F7E134992580AEB300B05C89 /* LaneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E134982580AEB300B05C89 /* LaneNode.swift */; };
 		F7F58B3425809642000B616C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F58B3325809642000B616C /* AppDelegate.swift */; };
 		F7F58B3625809642000B616C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F7F58B3525809642000B616C /* art.scnassets */; };
 		F7F58B3825809642000B616C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F58B3725809642000B616C /* GameViewController.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F7E134982580AEB300B05C89 /* LaneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaneNode.swift; sourceTree = "<group>"; };
 		F7F58B3025809642000B616C /* CrazyRoad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyRoad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7F58B3325809642000B616C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7F58B3525809642000B616C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				F7F58B3925809642000B616C /* Main.storyboard */,
 				F7F58B3C25809643000B616C /* Assets.xcassets */,
 				F7F58B3E25809643000B616C /* Info.plist */,
+				F7E134982580AEB300B05C89 /* LaneNode.swift */,
 			);
 			path = CrazyRoad;
 			sourceTree = "<group>";
@@ -134,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7E134992580AEB300B05C89 /* LaneNode.swift in Sources */,
 				F7F58B3825809642000B616C /* GameViewController.swift in Sources */,
 				F7F58B3425809642000B616C /* AppDelegate.swift in Sources */,
 			);

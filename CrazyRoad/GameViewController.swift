@@ -15,6 +15,9 @@ class GameViewController: UIViewController {
     var sceneView: SCNView!
     
     var cameraNode = SCNNode()
+    var mapNode = SCNNode()
+    var lanes = [LaneNode]()
+    var laneCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,17 @@ class GameViewController: UIViewController {
         scene = SCNScene()
         
         sceneView.scene = scene
+        
+        scene.rootNode.addChildNode(mapNode)
+        
+        for _ in 0..<20 {
+            let type = LaneType.grass
+            let lane = LaneNode(type: type, width: 21) // 21 made up
+            lane.position = SCNVector3(x: 0, y: 0, z: 5 - Float(laneCount))
+            laneCount += 1
+            lanes.append(lane)
+            mapNode.addChildNode(lane)
+        }
     }
     
     func setupFloor() {
