@@ -15,6 +15,8 @@ class GameViewController: UIViewController {
     var sceneView: SCNView!
     
     var cameraNode = SCNNode()
+    var lightNode = SCNNode()
+    var playerNode = SCNNode()
     var mapNode = SCNNode()
     var lanes = [LaneNode]()
     var laneCount = 0
@@ -22,8 +24,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScene()
+        setupPlayer()
         setupFloor()
         setupCamera()
+        setupLight()
     }
     
     func setupScene() {
@@ -42,6 +46,17 @@ class GameViewController: UIViewController {
             lanes.append(lane)
             mapNode.addChildNode(lane)
         }
+    }
+    
+    func setupPlayer() {
+        guard let playerScene = SCNScene(named: "art.scnassets/Chicken.scn") else {
+            return
+        }
+        if let player = playerScene.rootNode.childNode(withName: "player", recursively: true) {
+            playerNode = player
+            player.position = SCNVector3(x: 0, y: 0.3, z: 0)
+        }
+        scene.rootNode.addChildNode(playerNode)
     }
     
     func setupFloor() {
@@ -74,4 +89,25 @@ class GameViewController: UIViewController {
 //        cameraNode.eulerAngles = SCNVector3(x: -.pi/2, y: 0, z: 0)
 //        scene.rootNode.addChildNode(cameraNode)
     }
+    
+    func setupLight() {
+        let ambientNode = SCNNode()
+        ambientNode.light = SCNLight()
+        ambientNode.light?.type = .ambient
+        
+        let directionalNode = SCNNode()
+        directionalNode.light = SCNLight()
+        directionalNode.light?.type = .directional
+        directionalNode.light?.castsShadow = true
+        directionalNode.light?.shadowColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+        directionalNode.position = SCNVector3(x: -5, y: 5, z: 0)
+        directionalNode.eulerAngles = SCNVector3(x: 0, y: -toRadians(angle: 90), z: -toRadians(angle: 45))
+        
+        lightNode.addChildNode(ambientNode)
+        lightNode.addChildNode(directionalNode)
+        lightNode.position = cameraNode.position
+        scene.rootNode.addChildNode(lightNode)
+    }
+    
+    
 }

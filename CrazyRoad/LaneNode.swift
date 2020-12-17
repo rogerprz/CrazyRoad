@@ -30,7 +30,7 @@ class LaneNode: SCNNode {
             guard let texture = UIImage(named: "art.scnassets/asphalt.png") else {
                 break
             }
-            createLane(width: width, height: 0.5, image: texture)
+            createLane(width: width, height: 0.05, image: texture)
         }
     }
     
