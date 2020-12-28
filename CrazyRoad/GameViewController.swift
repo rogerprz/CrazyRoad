@@ -134,15 +134,15 @@ class GameViewController: UIViewController {
         let moveDownAction = SCNAction.moveBy(x: 0, y: -1.0, z: 0, duration: 0.1)
         moveUpAction.timingMode = .easeOut
         moveDownAction.timingMode = .easeIn
-        let jumpAction = SCNAction.sequence([moveUpAction, moveDownAction])
+        let jumpAction = SCNAction.sequence([moveUpAction,moveDownAction])
         
         let moveForwardAction = SCNAction.moveBy(x: 0, y: 0, z: -1.0, duration: 0.2)
         let moveRightAction = SCNAction.moveBy(x: 1.0, y: 0, z: 0, duration: 0.2)
         let moveLeftAction = SCNAction.moveBy(x: -1.0, y: 0, z: 0, duration: 0.2)
         
         let turnForwardAction = SCNAction.rotateTo(x: 0, y: toRadians(angle: 180), z: 0, duration: 0.2, usesShortestUnitArc: true)
-        let turnRightAction = SCNAction.rotateTo(x: 0, y: toRadians(angle: -90), z: 0, duration: 0.2, usesShortestUnitArc: true)
-        let turnLeftAction = SCNAction.rotateTo(x: 0, y: toRadians(angle: 90), z: 0, duration: 0.2, usesShortestUnitArc: true)
+        let turnRightAction = SCNAction.rotateTo(x: 0, y: toRadians(angle: 90), z: 0, duration: 0.2, usesShortestUnitArc: true)
+        let turnLeftAction = SCNAction.rotateTo(x: 0, y: toRadians(angle: -90), z: 0, duration: 0.2, usesShortestUnitArc: true)
         
         jumpForwardAction = SCNAction.group([turnForwardAction, jumpAction, moveForwardAction])
         jumpRightAction = SCNAction.group([turnRightAction, jumpAction, moveRightAction])
