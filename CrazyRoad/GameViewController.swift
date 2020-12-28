@@ -38,6 +38,8 @@ class GameViewController: UIViewController {
     
     func setupScene() {
         sceneView = (view as! SCNView)
+        sceneView.delegate = self
+        
         scene = SCNScene()
         
         sceneView.scene = scene
@@ -45,12 +47,7 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(mapNode)
         
         for _ in 0..<20 {
-            let type = randomBool(odds: 3) ? LaneType.grass : LaneType.road
-            let lane = LaneNode(type: type, width: 21) // 21 made up
-            lane.position = SCNVector3(x: 0, y: 0, z: 5 - Float(laneCount))
-            laneCount += 1
-            lanes.append(lane)
-            mapNode.addChildNode(lane)
+            createNewLane()
         }
     }
     
@@ -84,7 +81,7 @@ class GameViewController: UIViewController {
 //        x 0 keep camera on middle of x axis y:10 above the ground z: camera center
         cameraNode.position = SCNVector3(x: 0, y: 10, z: 0)
 //        make camera face downward y:0 face the floor, z:
-        cameraNode.eulerAngles = SCNVector3(x: -toRadians(angle: 72), y: toRadians(angle: 9), z: 0)
+        cameraNode.eulerAngles = SCNVector3(x: -toRadians(angle: 60), y: toRadians(angle: 20), z: 0)
         scene.rootNode.addChildNode(cameraNode)
  
 //        STRAIGHT DOWN CAMERA
@@ -151,10 +148,57 @@ class GameViewController: UIViewController {
     
     func jumpForward() {
         if let action = jumpForwardAction {
+            addLanes()
             playerNode.runAction(action)
         }
     }
     
+    func updatePositions() {
+//        update camera to view camera.
+        let diffX = (playerNode.position.x + 1 - cameraNode.position.x) // add 1 to offset to right
+        let diffZ = (playerNode.position.z + 2 - cameraNode.position.z) // offset to the back.
+        cameraNode.position.x += diffX
+        cameraNode.position.z += diffZ
+        
+        lightNode.position = cameraNode.position
+    }
+    
+    func addLanes() {
+        for _ in 0...1 {
+            createNewLane()
+        }
+        
+        removeUnusedLanes()
+    }
+    
+    func removeUnusedLanes() {
+//        removing used lanes by removing the children from map node.
+        for child in mapNode.childNodes {
+            if !sceneView.isNode(child, insideFrustumOf: cameraNode) && child.worldPosition.z > playerNode.worldPosition.z {
+                child.removeFromParentNode()
+                lanes.removeFirst()
+                print("Removed unused lane")
+            }
+        }
+    }
+    
+    func createNewLane() {
+        let type = randomBool(odds: 3) ? LaneType.grass : LaneType.road
+        let lane = LaneNode(type: type, width: 21) // 21 made up
+        lane.position = SCNVector3(x: 0, y: 0, z: 5 - Float(laneCount))
+        laneCount += 1
+        lanes.append(lane)
+        mapNode.addChildNode(lane)
+    }
+    
+}
+
+// updatePositions frames continously using loop.
+extension GameViewController: SCNSceneRendererDelegate {
+//    called after render actions have been evaluated
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        updatePositions()
+    }
 }
 
 extension GameViewController {
