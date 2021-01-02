@@ -24,6 +24,8 @@ class GameViewController: UIViewController {
     var jumpForwardAction: SCNAction?
     var jumpRightAction: SCNAction?
     var jumpLeftAction: SCNAction?
+    var driveRightAction: SCNAction?
+    var driveLeftAction: SCNAction?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,7 @@ class GameViewController: UIViewController {
         setupLight()
         setupGestures()
         setupActions()
+        setupTraffic()
     }
     
     func setupScene() {
@@ -144,6 +147,19 @@ class GameViewController: UIViewController {
         jumpForwardAction = SCNAction.group([turnForwardAction, jumpAction, moveForwardAction])
         jumpRightAction = SCNAction.group([turnRightAction, jumpAction, moveRightAction])
         jumpLeftAction = SCNAction.group([turnLeftAction, jumpAction, moveLeftAction])
+        
+        // Moves car by 1 sec at a time.
+        driveRightAction = SCNAction.repeatForever(SCNAction.moveBy(x: 2.0, y: 0, z: 0, duration: 1))
+        driveLeftAction = SCNAction.repeatForever(SCNAction.moveBy(x: -2.0, y: 0, z: 0, duration: 1)) 
+
+    }
+    
+    func setupTraffic() {
+        for lane in lanes {
+            if let trafficNode = lane.trafficNode {
+                addActions(for: trafficNode)
+            }
+        }
     }
     
     func jumpForward() {
@@ -161,6 +177,22 @@ class GameViewController: UIViewController {
         cameraNode.position.z += diffZ
         
         lightNode.position = cameraNode.position
+    }
+    
+    func updateTraffic() {
+//        ensures that vehicles that go outside the map will be moved back to the start.
+        for lane in lanes {
+            guard let trafficNode = lane.trafficNode else {
+                continue
+            }
+            for vehicle in trafficNode.childNodes {
+                if vehicle.position.x > 10 {
+                    vehicle.position.x = -10
+                } else if vehicle.position.x < -10 {
+                    vehicle.position.x = 10
+                }
+            }
+        }
     }
     
     func addLanes() {
@@ -189,6 +221,22 @@ class GameViewController: UIViewController {
         laneCount += 1
         lanes.append(lane)
         mapNode.addChildNode(lane)
+        
+        if let trafficNode = lane.trafficNode {
+            addActions(for: trafficNode)
+        }
+    }
+    
+    func addActions(for trafficNode: TrafficNode) {
+        guard let driveAction = trafficNode.directionRight ? driveRightAction : driveLeftAction else {
+            return
+        }
+//        change speed of vehicles. Don't use zero so it won't crash
+        driveAction.speed = 1/CGFloat(trafficNode.type + 1) + 0.5
+        for vehicle in trafficNode.childNodes {
+            vehicle.runAction(driveAction)
+        }
+        
     }
     
 }
@@ -198,6 +246,7 @@ extension GameViewController: SCNSceneRendererDelegate {
 //    called after render actions have been evaluated
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         updatePositions()
+        updateTraffic()
     }
 }
 
