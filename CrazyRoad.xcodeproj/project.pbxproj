@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F78B3B5C258B344E007EA0D6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78B3B5B258B344E007EA0D6 /* Utils.swift */; };
 		F7D15CF6259FFE680096FF7A /* CollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D15CF5259FFE680096FF7A /* CollisionNode.swift */; };
+		F7D15CF925A00F060096FF7A /* 8-BIT WONDER.TTF in Resources */ = {isa = PBXBuildFile; fileRef = F7D15CF825A00EFC0096FF7A /* 8-BIT WONDER.TTF */; };
+		F7D15CFC25A00F750096FF7A /* GameHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D15CFB25A00F750096FF7A /* GameHUD.swift */; };
 		F7E134992580AEB300B05C89 /* LaneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E134982580AEB300B05C89 /* LaneNode.swift */; };
 		F7F58B3425809642000B616C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F58B3325809642000B616C /* AppDelegate.swift */; };
 		F7F58B3625809642000B616C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F7F58B3525809642000B616C /* art.scnassets */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		F78B3B5B258B344E007EA0D6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F7D15CF5259FFE680096FF7A /* CollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionNode.swift; sourceTree = "<group>"; };
+		F7D15CF825A00EFC0096FF7A /* 8-BIT WONDER.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "8-BIT WONDER.TTF"; sourceTree = "<group>"; };
+		F7D15CFB25A00F750096FF7A /* GameHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHUD.swift; sourceTree = "<group>"; };
 		F7E134982580AEB300B05C89 /* LaneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaneNode.swift; sourceTree = "<group>"; };
 		F7F58B3025809642000B616C /* CrazyRoad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyRoad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7F58B3325809642000B616C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 		F7F58B3225809642000B616C /* CrazyRoad */ = {
 			isa = PBXGroup;
 			children = (
+				F7D15CF825A00EFC0096FF7A /* 8-BIT WONDER.TTF */,
 				F7F58B3325809642000B616C /* AppDelegate.swift */,
 				F7F58B3525809642000B616C /* art.scnassets */,
 				F7F58B3725809642000B616C /* GameViewController.swift */,
@@ -69,6 +74,7 @@
 				F7E134982580AEB300B05C89 /* LaneNode.swift */,
 				F78B3B5B258B344E007EA0D6 /* Utils.swift */,
 				F7D15CF5259FFE680096FF7A /* CollisionNode.swift */,
+				F7D15CFB25A00F750096FF7A /* GameHUD.swift */,
 			);
 			path = CrazyRoad;
 			sourceTree = "<group>";
@@ -133,6 +139,7 @@
 				F7F58B3625809642000B616C /* art.scnassets in Resources */,
 				F7F58B3D25809643000B616C /* Assets.xcassets in Resources */,
 				F7F58B3B25809642000B616C /* Main.storyboard in Resources */,
+				F7D15CF925A00F060096FF7A /* 8-BIT WONDER.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E134992580AEB300B05C89 /* LaneNode.swift in Sources */,
+				F7D15CFC25A00F750096FF7A /* GameHUD.swift in Sources */,
 				F7F58B3825809642000B616C /* GameViewController.swift in Sources */,
 				F7F58B3425809642000B616C /* AppDelegate.swift in Sources */,
 				F7D15CF6259FFE680096FF7A /* CollisionNode.swift in Sources */,
