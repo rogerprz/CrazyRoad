@@ -24,7 +24,8 @@ class CollisionNode: SCNNode {
     
     func createPhysicsBodies() {
         let boxGeometry = SCNBox(width: 0.25, height: 0.25, length: 0.25, chamferRadius: 0)
-        boxGeometry.firstMaterial?.diffuse.contents = UIColor.blue
+//        checks the collision in front. Update clear to another color to view.
+        boxGeometry.firstMaterial?.diffuse.contents = UIColor.clear
         
         let shape = SCNPhysicsShape(geometry: boxGeometry, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
         

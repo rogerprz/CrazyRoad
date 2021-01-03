@@ -25,8 +25,8 @@ class TrafficNode: SCNNode {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
-
 
 class LaneNode: SCNNode {
     
@@ -59,7 +59,7 @@ class LaneNode: SCNNode {
         laneGeometry.firstMaterial?.diffuse.wrapT = .repeat
         laneGeometry.firstMaterial?.diffuse.wrapS = .repeat
         laneGeometry.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(Float(width), 1, 1)
-        
+
         let laneNode = SCNNode(geometry: laneGeometry)
         addChildNode(laneNode)
         addElements(width, laneNode)
@@ -77,7 +77,7 @@ class LaneNode: SCNNode {
                     laneNode.addChildNode(vegetation)
                 }
             } else if type == .road {
-               carGap += 1
+                carGap += 1
                 if carGap > 3 {
                     guard let trafficNode = trafficNode else {
                         continue

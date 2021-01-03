@@ -61,7 +61,7 @@ class GameViewController: UIViewController {
     }
     
     func resetGame() {
-        scene.rootNode.enumerateChildNodes{ (node, _) in
+        scene.rootNode.enumerateChildNodes { (node, _) in
             node.removeFromParentNode()
         }
         scene = nil
@@ -123,17 +123,16 @@ class GameViewController: UIViewController {
         collisionNode = CollisionNode()
         collisionNode.position = playerNode.position
         scene.rootNode.addChildNode(collisionNode)
-        
     }
     
     func setupFloor() {
         let floor = SCNFloor()
         floor.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/darkgrass.png")
-        floor.firstMaterial?.diffuse.wrapS = .repeat // repeat our texture and not stetch over geometry
+        // repeat our texture and not stetch over geometry
+        floor.firstMaterial?.diffuse.wrapS = .repeat
         floor.firstMaterial?.diffuse.wrapT = .repeat
-        floor.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(12.5, 12.5, 12.5) // 4 dimensional matrix
-
-        
+        // 4 dimensional matrix
+        floor.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(12.5, 12.5, 12.5)
         floor.reflectivity = 0.0
         
         let floorNode = SCNNode(geometry: floor)
@@ -175,6 +174,7 @@ class GameViewController: UIViewController {
         lightNode.position = cameraNode.position
         scene.rootNode.addChildNode(lightNode)
     }
+    
     func setupGestures() {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
         swipeUp.direction = .up
@@ -210,8 +210,8 @@ class GameViewController: UIViewController {
         jumpLeftAction = SCNAction.group([turnLeftAction, jumpAction, moveLeftAction])
         
         // Moves car by 1 sec at a time.
-        driveRightAction = SCNAction.repeatForever(SCNAction.moveBy(x: 2.0, y: 0, z: 0, duration: 1))
-        driveLeftAction = SCNAction.repeatForever(SCNAction.moveBy(x: -2.0, y: 0, z: 0, duration: 1))
+        driveRightAction = SCNAction.repeatForever(SCNAction.moveBy(x: 2.0, y: 0, z: 0, duration: 1.0))
+        driveLeftAction = SCNAction.repeatForever(SCNAction.moveBy(x: -2.0, y: 0, z: 0, duration: 1.0))
         
         dieAction = SCNAction.moveBy(x: 0, y: 5, z: 0, duration: 1.0)
     }
@@ -239,8 +239,10 @@ class GameViewController: UIViewController {
         collisionNode.position = playerNode.position
         
 //        update camera to view camera.
-        let diffX = (playerNode.position.x + 1 - cameraNode.position.x) // add 1 to offset to right
-        let diffZ = (playerNode.position.z + 2 - cameraNode.position.z) // offset to the back.
+        // add 1 to offset to right
+        let diffX = (playerNode.position.x + 1 - cameraNode.position.x)
+        // offset to the back.
+        let diffZ = (playerNode.position.z + 2 - cameraNode.position.z)
         cameraNode.position.x += diffX
         cameraNode.position.z += diffZ
         
@@ -267,6 +269,7 @@ class GameViewController: UIViewController {
         for _ in 0...1 {
             createNewLane(initial: false)
         }
+        
         removeUnusedLanes()
     }
     
@@ -284,7 +287,8 @@ class GameViewController: UIViewController {
     func createNewLane(initial: Bool) {
         
         let type = randomBool(odds: 3) || initial ? LaneType.grass : LaneType.road
-        let lane = LaneNode(type: type, width: 21) // 21 made up
+        // width of 21 is made up
+        let lane = LaneNode(type: type, width: 21)
         lane.position = SCNVector3(x: 0, y: 0, z: 5 - Float(laneCount))
         laneCount += 1
         lanes.append(lane)
@@ -338,6 +342,7 @@ extension GameViewController: SCNSceneRendererDelegate {
 }
 
 extension GameViewController: SCNPhysicsContactDelegate {
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         guard let categoryA = contact.nodeA.physicsBody?.categoryBitMask, let categoryB = contact.nodeB.physicsBody?.categoryBitMask else {
             return
@@ -378,7 +383,7 @@ extension GameViewController {
                 }
             }
         case UISwipeGestureRecognizer.Direction.left:
-            if playerNode.position.x > -10 && !leftBlocked{
+            if playerNode.position.x > -10 && !leftBlocked {
                 if let action = jumpLeftAction {
                     playerNode.runAction(action, completionHandler: {
                         self.checkBlocks()
